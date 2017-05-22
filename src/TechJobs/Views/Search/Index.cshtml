@@ -32,5 +32,31 @@
 
     <h3>@ViewBag.jobs.Count Result(s)</h3>
 
-    // TODO #2 - Loop over jobs dictionary and display all job fields 
+    // TODO #2 - Loop over jobs dictionary and display all job fields
+
+    if (ViewBag.jobs.Count > 0)
+    {
+
+        string[] jobKeys = new string[ViewBag.jobs[0].Count];
+        ViewBag.jobs[0].Keys.CopyTo(jobKeys, 0);
+        @foreach (Dictionary<string, string> job in ViewBag.jobs)
+        {
+            <table class="job-listing">
+                <tbody>
+                    @foreach (string myKey in jobKeys)
+                    {
+                    <tr>
+                        <td>@myKey</td> 
+                        <td>@job[myKey]</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+    else
+    {
+        <p>No jobs found</p>
+    }
+
 }
