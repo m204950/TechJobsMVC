@@ -17,10 +17,34 @@ namespace TechJobs.Controllers
         // search request and display results
         public IActionResult Results(string searchType, string searchTerm)
         {
-            List<Dictionary<string, string>> jobs;
+ 
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
             if (searchType == "all")
             {
-                jobs = JobData.FindAll();
+                List<Dictionary<string, string>> allJobs;
+                allJobs = JobData.FindAll();
+                string[] jobKeys = new string[allJobs[0].Count];
+                allJobs[0].Keys.CopyTo(jobKeys, 0);
+
+
+                foreach (Dictionary<string, string> row in allJobs)
+                {
+                    bool found = false;
+                    foreach (string myKey in jobKeys)
+                    {
+
+                        string aValue = row[myKey];
+
+                        if (aValue.ToLower().Contains(searchTerm.ToLower()))
+                        {
+                            found = true;
+                        }
+                    }
+                    if (found)
+                    {
+                        jobs.Add(row);
+                    }
+                }
             }
             else
             {
