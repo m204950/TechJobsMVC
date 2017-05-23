@@ -1,0 +1,33 @@
+﻿@{
+}
+@if (ViewBag.jobs.Count > 0)
+{
+
+    string[] jobKeys = new string[ViewBag.jobs[0].Count];
+    ViewBag.jobs[0].Keys.CopyTo(jobKeys, 0);
+    @foreach (Dictionary<string, string> job in ViewBag.jobs)
+    {
+        <table class="job-listing">
+            <tbody>
+                @foreach (string myKey in jobKeys)
+                    {
+                    <tr>
+                        <td>@myKey.First().ToString().ToUpper()@myKey.Substring(1)</td>
+                        @if (myKey == "name")
+                        {
+                            <td>@job[myKey]</td>
+                        }
+                        else
+                        {
+                            <td><a asp-controller="List" asp-action="Jobs" asp-route-column="@myKey" asp-route-value="@job[myKey]">@job[myKey]</a></td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+else
+{
+    <p>No jobs found</p>
+}

@@ -53,6 +53,7 @@ namespace TechJobs.Controllers
             ViewBag.columns = ListController.columnChoices;
             ViewBag.title = "Search";
             ViewBag.jobs = jobs;
+            ViewBag.searchType = searchType;
             return View("/Views/Search/Index.cshtml");
         }
 
